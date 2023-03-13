@@ -1,56 +1,75 @@
 function getComputerChoice() {
-    let computerChoice = Math.floor(Math.random()*3)
-    if(computerChoice == 0) {
-        return computerSelection = "Rock"
-    } else if(computerChoice == 1) {
-        return computerSelection = "Paper"
-    } else if(computerChoice == 2) {
-        return computerSelection = "Scissors"
+    let botChoice = Math.floor(Math.random()*3);``
+    if(botChoice == 0) {
+        return botChoice = "Rock";
+    } else if(botChoice == 1) {
+        return botChoice = "Paper";
+    } else if(botChoice == 2) {
+        return botChoice = "Scissors";
     }
 }
 
-function playRound(playerSelection, computerSelection) {
-    if (playerSelection == "Rock" && computerSelection == "Rock") {
-        return "Draw! Both sides chose Rock!"
-    } else if (playerSelection == "Rock" && computerSelection == "Paper") {
-        return "Computer wins! Paper beats Rock"
-    } else if (playerSelection == "Rock" && computerSelection == "Scissors") {
-        return "Player wins! Rock beats Scissors"
-    } else if (playerSelection == "Paper" && computerSelection == "Rock") {
-        return "Player wins! Paper beats Rock"
-    } else if (playerSelection == "Paper" && computerSelection == "Paper") {
-        return "Draw! Both sides chose Paper"
-    } else if (playerSelection == "Paper" && computerSelection == "Scissors") {
-        return "Computer wins! Scissors beat Paper"
-    } else if (playerSelection == "Scissors" && computerSelection == "Rock") {
-        return "Computer wins! Rock beats Scissors!"
-    } else if (playerSelection == "Scissors" && computerSelection == "Paper") {
-        return "Player wins! Scissors beat Paper"
-    } else if (playerSelection == "Scissors" && computerSelection == "Scissors") {
-        return "Draw! Both sides chose Scissors"
-    } return "Invalid input"
+function playRound(userChoice, botChoice) {
+    let winner;
+    let resultMessage;
+    if (userChoice == 'Rock' && botChoice == 'Scissors' ||
+    userChoice == 'Paper' && botChoice == 'Rock' ||
+    userChoice == 'Scissors' && botChoice == 'Paper') {
+        winner = 'Player'
+        return resultMessage = `${winner} wins! ${userChoice} beats ${botChoice}!`;
+    } else if (botChoice == 'Rock' && userChoice == 'Scissors' ||
+    botChoice == 'Paper' && userChoice == 'Rock' ||
+    botChoice == 'Scissors' && userChoice == 'Paper') {
+        winner = 'Computer'
+        return resultMessage = `${winner} wins! ${botChoice} beats ${userChoice}!`;
+    } return resultMessage = `Draw! both sides chose ${userChoice}!`
 }
 
-const rock = document.querySelector('#rock')
-const paper = document.querySelector('#paper')
-const scissors = document.querySelector('#scissors')
+function removeEventListeners() {
+    rock.removeEventListener('click', chooseRock);
+    paper.removeEventListener('click', choosePaper);
+    scissors.removeEventListener('click', chooseScissors);
+}
 
-const result = document.querySelector('#results')
+function declareWinner(winner) {
+    score.textContent += `. ${winner} wins!`
+}
 
-rock.addEventListener('click', () => {
-    const resultList = document.createElement('li')
-    resultList.textContent = playRound('Rock', getComputerChoice())
-    result.appendChild(resultList)
-});
-paper.addEventListener('click', () => {
-    const resultList = document.createElement('li')
-    resultList.textContent = playRound('Paper', getComputerChoice())
-    result.appendChild(resultList)
-});
-scissors.addEventListener('click', () => {
-    const resultList = document.createElement('li')
-    resultList.textContent = playRound('Scissors', getComputerChoice())
-    result.appendChild(resultList)
-});
+let userScore = 0;
+let botScore = 0;
+
+function playGame(userChoice) {
+    let resultMessage = playRound(userChoice, getComputerChoice());
+    if (resultMessage.startsWith('Player') == true) {
+        userScore++
+    } else if (resultMessage.startsWith('Computer') == true) {
+        botScore++
+    }
+    const resultList = document.createElement('li');
+    resultList.textContent = resultMessage;
+    result.appendChild(resultList);
+    score.textContent = `Player ${userScore} - ${botScore} Computer`;
+    score.append;
+    if (userScore == 5) {
+        removeEventListeners();
+        declareWinner('Player');
+    } else if (botScore == 5) {
+        removeEventListeners();
+        declareWinner('Computer');
+    }
+}
+
+const rock = document.querySelector('#rock');
+const paper = document.querySelector('#paper');
+const scissors = document.querySelector('#scissors');
+const result = document.querySelector('#results');
+const score = document.querySelector('#score');
+let chooseRock = () => playGame('Rock');
+let choosePaper = () => playGame('Paper');
+let chooseScissors = () => playGame('Scissors');
+
+rock.addEventListener('click', chooseRock);
+paper.addEventListener('click', choosePaper);
+scissors.addEventListener('click', chooseScissors);
 
 // remember to use $ git push orign rps-ui
