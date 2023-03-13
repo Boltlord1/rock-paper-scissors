@@ -35,39 +35,22 @@ const rock = document.querySelector('#rock')
 const paper = document.querySelector('#paper')
 const scissors = document.querySelector('#scissors')
 
+const result = document.querySelector('#results')
+
 rock.addEventListener('click', () => {
-    console.log(playRound('Rock', getComputerChoice()));
+    const resultList = document.createElement('li')
+    resultList.textContent = playRound('Rock', getComputerChoice())
+    result.appendChild(resultList)
 });
 paper.addEventListener('click', () => {
-    console.log(playRound('Paper', getComputerChoice()));
+    const resultList = document.createElement('li')
+    resultList.textContent = playRound('Paper', getComputerChoice())
+    result.appendChild(resultList)
 });
 scissors.addEventListener('click', () => {
-    console.log(playRound('Scissors', getComputerChoice()));
+    const resultList = document.createElement('li')
+    resultList.textContent = playRound('Scissors', getComputerChoice())
+    result.appendChild(resultList)
 });
-
-/* function game() {
-    let playerScore = 0
-    let computerScore = 0
-    while (playerScore != 5 && computerScore != 5) {
-        let playerSelection = prompt("Choose Object:", "rock")
-        let computerSelection = getComputerChoice()
-        let result = playRound(playerSelection, computerSelection)
-        console.log(result)
-        if (result[0] == "P") {
-            playerScore++
-        } else if (result[0] == "C") {
-            computerScore++
-        }
-        let scoreboard = `Player ${playerScore} - ${computerScore} Computer`
-        console.log(scoreboard)
-    }
-    if (playerScore == 5) {
-        console.log("Player wins!")
-    } else if (computerScore == 5) {
-        console.log("Computer wins!")
-    }
-}
-
-console.log(game()) */
 
 // remember to use $ git push orign rps-ui
