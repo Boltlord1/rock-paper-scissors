@@ -10,29 +10,42 @@ function getComputerChoice() {
 }
 
 function playRound(playerSelection, computerSelection) {
-    playerSelection = playerSelection.toLowerCase()
-    if (playerSelection == "rock" && computerSelection == "Rock") {
+    if (playerSelection == "Rock" && computerSelection == "Rock") {
         return "Draw! Both sides chose Rock!"
-    } else if (playerSelection == "rock" && computerSelection == "Paper") {
+    } else if (playerSelection == "Rock" && computerSelection == "Paper") {
         return "Computer wins! Paper beats Rock"
-    } else if (playerSelection == "rock" && computerSelection == "Scissors") {
+    } else if (playerSelection == "Rock" && computerSelection == "Scissors") {
         return "Player wins! Rock beats Scissors"
-    } else if (playerSelection == "paper" && computerSelection == "Rock") {
+    } else if (playerSelection == "Paper" && computerSelection == "Rock") {
         return "Player wins! Paper beats Rock"
-    } else if (playerSelection == "paper" && computerSelection == "Paper") {
+    } else if (playerSelection == "Paper" && computerSelection == "Paper") {
         return "Draw! Both sides chose Paper"
-    } else if (playerSelection == "paper" && computerSelection == "Scissors") {
+    } else if (playerSelection == "Paper" && computerSelection == "Scissors") {
         return "Computer wins! Scissors beat Paper"
-    } else if (playerSelection == "scissors" && computerSelection == "Rock") {
+    } else if (playerSelection == "Scissors" && computerSelection == "Rock") {
         return "Computer wins! Rock beats Scissors!"
-    } else if (playerSelection == "scissors" && computerSelection == "Paper") {
+    } else if (playerSelection == "Scissors" && computerSelection == "Paper") {
         return "Player wins! Scissors beat Paper"
-    } else if (playerSelection == "scissors" && computerSelection == "Scissors") {
+    } else if (playerSelection == "Scissors" && computerSelection == "Scissors") {
         return "Draw! Both sides chose Scissors"
     } return "Invalid input"
 }
 
-function game() {
+const rock = document.querySelector('#rock')
+const paper = document.querySelector('#paper')
+const scissors = document.querySelector('#scissors')
+
+rock.addEventListener('click', () => {
+    console.log(playRound('Rock', getComputerChoice()));
+});
+paper.addEventListener('click', () => {
+    console.log(playRound('Paper', getComputerChoice()));
+});
+scissors.addEventListener('click', () => {
+    console.log(playRound('Scissors', getComputerChoice()));
+});
+
+/* function game() {
     let playerScore = 0
     let computerScore = 0
     while (playerScore != 5 && computerScore != 5) {
@@ -55,4 +68,6 @@ function game() {
     }
 }
 
-console.log(game())
+console.log(game()) */
+
+// remember to use $ git push orign rps-ui
