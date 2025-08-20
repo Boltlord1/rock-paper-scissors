@@ -1,10 +1,11 @@
 function moveID(move) {
-    if (move === 0) {
-        return `rock`
-    } else if (move === 1) {
-        return `paper`
-    } else if (move === 2) {
-        return `scissors`
+    switch(move) {
+        case 0:
+            return `rock`
+        case 1:
+            return`paper`
+        case 2:
+            return `scissors`
     }
 }
 
@@ -12,8 +13,27 @@ function computerChoice() {
     return Math.floor(Math.random() * 3)
 }
 
-function playRound(computerChoice, playerChoice) {
-    console.log(computerChoice + ` ` + playerChoice)
+function playRound(computer, player) {
+    let checkS = `s`
+    if (player === 2) chcekS = ``
+
+    if (playerScore > 4 || computerScore > 4) return
+
+    let roundText
+    if (computer === player) {
+        roundText = `Draw! Both sides chose ${moveID(computer)}`
+    } else if (computer === (player - 1) || player === 0 && computer === 2) {
+        roundText = `Player wins! ${moveID(player)} beat${checkS} ${moveID(computer)}`
+        playerScore++
+    } else if (computer === (player + 1) || computer === 0 && player === 2) {
+        roundText = `Computer wins! ${moveID(player)} lose${checkS} to ${moveID(computer)}`
+        computerScore++
+    }
+
+    scoreCounter.textContent = `Player ${playerScore} - ${computerScore} Computer`
+    const round = document.createElement(`li`)
+    round.textContent = roundText
+    roundList.appendChild(round)
 }
 
 const buttons = document.querySelector(`.buttons`)
@@ -35,5 +55,8 @@ buttons.addEventListener(`click`, (event) => {
     }
 })
 
-const scoreList = document.querySelector(`.score`)
-const scoreListItem = document.createElement(`li`)
+let computerScore = 0
+let playerScore = 0
+
+const roundList = document.querySelector(`.rounds`)
+const scoreCounter = document.querySelector(`.score`)
