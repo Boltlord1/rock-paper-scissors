@@ -14,19 +14,17 @@ function computerChoice() {
 }
 
 function playRound(computer, player) {
-    let checkS = `s`
-    if (player === 2) chcekS = ``
-
-    if (playerScore > 4 || computerScore > 4) return
+    if (someoneWon  === true) return
+    if (player === 2) checkS = ``
 
     let roundText
     if (computer === player) {
-        roundText = `Draw! Both sides chose ${moveID(computer)}`
+        roundText = `Draw! Both sides chose ${moveID(computer)}.`
     } else if (computer === (player - 1) || player === 0 && computer === 2) {
-        roundText = `Player wins! ${moveID(player)} beat${checkS} ${moveID(computer)}`
+        roundText = `Player wins! ${moveID(player)} beat${checkS} ${moveID(computer)}.`
         playerScore++
     } else if (computer === (player + 1) || computer === 0 && player === 2) {
-        roundText = `Computer wins! ${moveID(player)} lose${checkS} to ${moveID(computer)}`
+        roundText = `Computer wins! ${moveID(player)} lose${checkS} to ${moveID(computer)}.`
         computerScore++
     }
 
@@ -34,6 +32,27 @@ function playRound(computer, player) {
     const round = document.createElement(`li`)
     round.textContent = roundText
     roundList.appendChild(round)
+
+    if (playerScore > 4) {
+        return endGame(`Player`, playerScore, computerScore)
+    } else if (computerScore > 4) {
+        return endGame(`Computer`, computerScore, playerScore)
+    }
+}
+
+function endGame(winner, winnerScore, loserScore) {
+    const round = document.createElement(`li`)
+    round.textContent = `${winner} is the winner! They won with a score of ${winnerScore} - ${loserScore}.`
+    roundList.appendChild(round)
+    someoneWon = true
+}
+
+function resetGame() {
+    computerScore = 0
+    playerScore = 0
+    someoneWon = false
+    scoreCounter.textContent = `Player 0 - 0 Computer`
+    roundList.textContent = `Round:`
 }
 
 const buttons = document.querySelector(`.buttons`)
@@ -50,13 +69,17 @@ buttons.addEventListener(`click`, (event) => {
             playRound(computerChoice(), 2)
             break
         case `reset`:
-            console.log(3)
+            resetGame()
             break
     }
 })
 
 let computerScore = 0
 let playerScore = 0
+let someoneWon = false
+let checkS = `s`
 
-const roundList = document.querySelector(`.rounds`)
 const scoreCounter = document.querySelector(`.score`)
+scoreCounter.textContent = `Player 0 - 0 Computer`
+const roundList = document.querySelector(`.rounds`)
+roundList.textContent = `Round:`
