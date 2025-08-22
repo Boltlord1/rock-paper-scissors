@@ -15,6 +15,7 @@ function computerChoice() {
 
 function playRound(computer, player) {
     if (someoneWon  === true) return
+    let checkS = `s`
     if (player === 2) checkS = ``
 
     let roundText
@@ -77,7 +78,6 @@ buttons.addEventListener(`click`, (event) => {
 let computerScore = 0
 let playerScore = 0
 let someoneWon = false
-let checkS = `s`
 
 const scoreCounter = document.querySelector(`.score`)
 scoreCounter.textContent = `Player 0 - 0 Computer`
